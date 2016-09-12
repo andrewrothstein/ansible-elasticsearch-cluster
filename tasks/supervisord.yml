@@ -1,3 +1,14 @@
 ---
+- name: install supervisord program conf...
+  become: yes
+  become_user: root
+  with_items:
+    - etc/supervisor/conf.d/elasticsearch.conf
+  template: >-
+    src={{item}}.j2
+    dest=/{{item}}
+    mode=0644
+
 - name: starting up elasticsearch app in supervisord
+  when: elasticsearch_launch
   supervisorctl: name=elasticsearch state=started

@@ -8,6 +8,5 @@
     mode=0644
 
 - name: starting up elasticsearch...
-  when: elasticsearch_launch
   include: '{{elasticsearch_supervisor}}.yml'
 
