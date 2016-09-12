@@ -1,0 +1,5 @@
+---
+- name: starting up elasticsearch systemd unit...
+  become: yes
+  become_user: root
+  service: name=elasticsearch state=started enabled=yes
