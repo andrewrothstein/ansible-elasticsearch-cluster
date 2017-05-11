@@ -1,12 +1,35 @@
 ---
+elasticsearch_dir: /usr/local/elasticsearch
+
 #elasticsearch_cluster_name : elasticsearch-cluster-name
-#elasticsearch_node_rack : r1
 
-# Set a custom port for HTTP:
-#elasticsearch_network_port : 9200
-elasticsearch_network_interface: eth0
+#elasticsearch_cluster_node:
+#  rack : r1
+#  name: node-name-qwert
 
-elasticsearch_launch: true
-elasticsearch_supervisor: systemd
+elasticsearch_cluster_network:
+  bind: '127.0.0.1'
 
-elasticsearch_cluster_groupname: elasticsearch
+elasticsearch_cluster_http:
+  port : 9200
+
+elasticsearch_cluster_gateway:
+  recover_after_nodes: 3
+  
+elasticsearch_cluster_paths:
+  data: /var/log/elasticsearch
+  logs: /var/lib/elasticsearch
+
+elasticsearch_cluster_hosts:
+  ty: static
+  hosts:
+    - localhost
+
+# also supports finding the hosts from a group/inventory
+elasticsearch_cluster_hosts:
+  ty: group
+  group: elasticsearch
+
+elasticsearch_cluster_activate: True
+elasticsearch_cluster_supervisor: systemd
+

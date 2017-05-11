@@ -1,6 +1,24 @@
 ---
-- name: starting up elasticsearch systemd unit...
+- name: install systemd service...
   become: yes
   become_user: root
-  when: elasticsearch_launch
-  service: name=elasticsearch state=started enabled=yes
+  with_items:
+    - f: elasticsearch.service
+  template: 
+    src: '{{item.f}}.j2'
+    dest: '{{item.d|default("/etc/systemd/system")}}/{{item.f}}'
+    mode: '{{item.m|default("0644")}}'
+  register: elasticsearch_cluster_service_updated
+
+- name: systemctl daemon-reload
+  command: systemctl daemon-reload
+  when: elasticsearch_cluster_activate and elasticsearch_cluster_service_updated|changed
+
+- name: starting up elasticsearch...
+  become: yes
+  become_user: root
+  when: elasticsearch_cluster_activate
+  service:
+    name: elasticsearch
+    state: started
+    enabled: yes

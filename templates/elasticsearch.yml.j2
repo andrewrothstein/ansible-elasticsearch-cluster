@@ -23,21 +23,12 @@ cluster:
 #
 # Use a descriptive name for the node:
 #
-{% if elasticsearch_node_name is defined %}
+{% if elasticsearch_cluster_node is defined %}
 node:
-  name: {{elasticsearch_node_name}}
-{% else %}
-node:
-  name: {{inventory_hostname}}
-{% endif %}
-#
-# Add custom attributes to the node:
-#
-{% if elasticsearch_node_rack is defined %}
-node:
-  rack: {{elasticsearch_node_rack}}
-{% else %}
-# node.rack: r1
+  name: {{elasticsearch_cluster_node.name | default(inventory_hostname)}}
+{% if elasticsearch_cluster_node.rack is defined %}
+  rack: {{elasticsearch_cluster_node.rack }}
+{% endif }
 {% endif %}
 #
 # ----------------------------------- Paths ------------------------------------
@@ -50,8 +41,8 @@ node:
 #
 # path.logs: /path/to/logs
 path:
-  data: /var/lib/elasticsearch
-  logs: /var/log/elasticsearch
+  data: {{elasticsearch_cluster_paths.data}}
+  logs: {{elasticsearch_cluster_logs.data}}
 
 #
 # ----------------------------------- Memory -----------------------------------
@@ -66,21 +57,12 @@ path:
 # Elasticsearch performs poorly when the system is swapping the memory.
 #
 # ---------------------------------- Network -----------------------------------
-#
-# Set the bind address to a specific IP (IPv4 or IPv6):
-#
 network:
-  host : {{ hostvars[inventory_hostname]['ansible_' + elasticsearch_network_interface]['ipv4']['address'] }}
+  host : {{elasticsearch_cluster_network.host}}
 
-#
-# Set a custom port for HTTP:
-#
-{% if elasticsearch_network_port is defined %}
 http:
-  port: {{elasticsearch_network_port}}
-{% else %}
-# http.port: 9200
-{% endif %}
+  port: {{elasticsearch_cluster_http.port}}
+
 #
 # For more information, see the documentation at:
 # <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-network.html>
@@ -89,7 +71,11 @@ http:
 #
 # Block initial recovery after a full cluster restart until N nodes are started:
 #
+{% if elasticsearch_cluster_gateway is defined %}
+gateway.recover_after_nodes: {{elasticsearch_cluster_gateway.recover_after_nodes}}
+{% else %}
 # gateway.recover_after_nodes: 3
+{% endif %}
 #
 # For more information, see the documentation at:
 # <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway.html>
@@ -101,19 +87,11 @@ http:
 # Pass an initial list of hosts to perform discovery when new node is started:
 # The default list of hosts is ["127.0.0.1", "[::1]"]
 #
-{% if groups[elasticsearch_group_name] is defined %}
-discovery.zen.ping.unicast.hosts: [{% for host in groups[elasticsearch_group_name] %}"{{hostvars[host]['ansible_' + elasticsearch_network_interface]['ipv4']['address']}}"{% if not loop.last %},{% endif %}{% endfor %}]
-{% else %}
-# discovery.zen.ping.unicast.hosts: ['host1', 'host2', 'host2']
-{% endif %}
+discovery.zen.ping.unicast.hosts: {{elasticsearch_cluster_eff_hosts|to_json}}
 #
 # Prevent the "split brain" by configuring the majority of nodes (total number of nodes / 2 + 1):
 #
-{% if groups['elasticsearch'] is defined %}
-discovery.zen.minimum_master_nodes: {{ (groups[elasticsearch_group_name]|length / 2)|int + 1}}
-{% else %}
-# discovery.zen.minimum_master_nodes: 2
-{% endif %}
+discovery.zen.minimum_master_nodes: {{elasticsearch_cluster_quorum|to_json}}
 #
 # For more information, see the documentation at:
 # <http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-discovery.html>
