@@ -1,5 +1,6 @@
 andrewrothstein.elasticsearch-cluster
 =====================================
+[![Build Status](https://travis-ci.org/andrewrothstein/ansible-elasticsearch-cluster.svg?branch=master)](https://travis-ci.org/andrewrothstein/ansible-elasticsearch-cluster)
 
 A role to configure an elasticsearch cluster member.
 
