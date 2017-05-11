@@ -8,7 +8,7 @@ elasticsearch_dir: /usr/local/elasticsearch
 #  name: node-name-qwert
 
 elasticsearch_cluster_network:
-  bind: '127.0.0.1'
+  host: '127.0.0.1'
 
 elasticsearch_cluster_http:
   port : 9200
