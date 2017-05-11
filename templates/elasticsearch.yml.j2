@@ -87,7 +87,7 @@ gateway.recover_after_nodes: {{elasticsearch_cluster_gateway.recover_after_nodes
 # Pass an initial list of hosts to perform discovery when new node is started:
 # The default list of hosts is ["127.0.0.1", "[::1]"]
 #
-discovery.zen.ping.unicast.hosts: {{elasticsearch_cluster_eff_hosts|to_json}}
+discovery.zen.ping.unicast.hosts: {{elasticsearch_cluster_host_list|to_json}}
 #
 # Prevent the "split brain" by configuring the majority of nodes (total number of nodes / 2 + 1):
 #
