@@ -6,4 +6,4 @@ elasticsearch_cluster_eff_hosts: '[{% if elasticsearch_cluster_hosts.ty == "stat
 
 elasticsearch_cluster_node_count: '{% if elasticsearch_cluster_hosts.ty == "static" %}{{ elasticsearch_cluster_hosts.hosts|length }}{% else %}{{ groups[elasticsearch_cluster_hosts.group|default("elasticsearch")]|length }}{% endif %}'
 
-elasticsearch_cluster_quorum: '{{ (elasticsearch_cluster_node_count / 2)|int +1 }}'
+elasticsearch_cluster_quorum: '{{ (elasticsearch_cluster_node_count / 2)|int + 1 }}'

@@ -26,9 +26,9 @@ elasticsearch_cluster_hosts:
     - localhost
 
 # also supports finding the hosts from a group/inventory
-elasticsearch_cluster_hosts:
-  ty: group
-  group: elasticsearch
+#elasticsearch_cluster_hosts:
+#  ty: group
+#  group: elasticsearch
 
 elasticsearch_cluster_activate: True
 elasticsearch_cluster_supervisor: systemd
