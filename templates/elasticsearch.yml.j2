@@ -27,8 +27,8 @@ cluster:
 node:
   name: {{elasticsearch_cluster_node.name | default(inventory_hostname)}}
 {% if elasticsearch_cluster_node.rack is defined %}
-  rack: {{elasticsearch_cluster_node.rack }}
-{% endif }
+  rack: {{elasticsearch_cluster_node.rack}}
+{% endif %}
 {% endif %}
 #
 # ----------------------------------- Paths ------------------------------------

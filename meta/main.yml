@@ -13,13 +13,13 @@ galaxy_info:
     - name: Fedora
       versions:
         - 23
+        - 24
+        - 25
     - name: Ubuntu
       versions:
         - xenial
   galaxy_tags:
     - development
 
-dependencies:
-  - role: andrewrothstein.elasticsearch
-    version: v2.0.0
+dependencies: []
   

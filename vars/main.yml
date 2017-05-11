@@ -1,5 +1,6 @@
 ---
 # vars file for elasticsearch-cluster
+elasticsearch_cluster_config_dir: '{{elasticsearch_dir}}/config'
 
 elasticsearch_cluster_eff_hosts: '[{% if elasticsearch_cluster_hosts.ty == "static" %}{% for h in elasticsearch_cluster_hosts.hosts %}{{ h | to_json }}{% if not loop.last %},{% endif %}{% endfor %}{% else %}{% for h in groups[elasticsearch_cluster_hosts.group|default("elasticsearch")] %}{{ h | to_json }}{% if not loop.last %},{% endif %}{% endfor %}{% endif %}]'
 

@@ -1,4 +1,12 @@
 ---
+- name: make config dir
+  become: yes
+  become_user: root
+  file:
+    path: '{{elasticsearch_cluster_config_dir}}'
+    state: directory
+    mode: 0755
+
 - name: install elasticsearch.yml
   become: yes
   become_user: root
@@ -6,7 +14,7 @@
     - f: elasticsearch.yml
   template:
     src: '{{item.f}}.j2'
-    dest: '{{item.d|default("/etc/elasticsearch")}}/{{item.f}}'
+    dest: '{{item.d|default(elasticsearch_cluster_config_dir)}}/{{item.f}}'
     mode: '{{item.m|default("0644")}}'
 
 - include: '{{elasticsearch_supervisor|default("systemd")}}.yml'
