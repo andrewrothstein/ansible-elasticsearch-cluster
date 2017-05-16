@@ -1,4 +1,19 @@
 ---
+- name: create elasticsearch group
+  become: yes
+  become_user: root
+  group:
+    name: '{{elasticsearch_cluster_groupname}}'
+    state: present
+
+- name: create elasticsearch user
+  become: yes
+  become_user: root
+  user:
+    name: '{{elasticsearch_cluster_username}}'
+    group: '{{elasticsearch_cluster_groupname}}'
+    home: '{{elasticsearch_dir}}'
+
 - name: make config dir
   become: yes
   become_user: root
