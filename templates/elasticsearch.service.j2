@@ -5,8 +5,8 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-User={{elasticsearch_cluster_user}}
-Group={{elasticsearch_cluster_group}}
+User={{elasticsearch_cluster_username}}
+Group={{elasticsearch_cluster_groupname}}
 
 ExecStartPre={{elasticsearch_dir}}/bin/elasticsearch-systemd-pre-exec
 
