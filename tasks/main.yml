@@ -32,5 +32,5 @@
     dest: '{{item.d|default(elasticsearch_cluster_config_dir)}}/{{item.f}}'
     mode: '{{item.m|default("0644")}}'
 
-- include: '{{elasticsearch_supervisor|default("systemd")}}.yml'
+- include_tasks: '{{elasticsearch_supervisor|default("systemd")}}.yml'
 
