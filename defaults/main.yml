@@ -14,7 +14,7 @@ elasticsearch_cluster_network:
   host: '127.0.0.1'
 
 elasticsearch_cluster_http:
-  port : 9200
+  port: 9200
 
 elasticsearch_cluster_gateway:
   recover_after_nodes: 3
@@ -35,4 +35,3 @@ elasticsearch_cluster_hosts:
 
 elasticsearch_cluster_activate: True
 elasticsearch_cluster_supervisor: systemd
-

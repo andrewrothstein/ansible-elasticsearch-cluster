@@ -33,4 +33,3 @@
     mode: '{{item.m|default("0644")}}'
 
 - include_tasks: '{{elasticsearch_supervisor|default("systemd")}}.yml'
-
