@@ -4,7 +4,7 @@ elasticsearch_cluster_groupname: elasticsearch
 
 elasticsearch_dir: /usr/local/elasticsearch
 
-#elasticsearch_cluster_name : elasticsearch-cluster-name
+#elasticsearch_cluster_name: elasticsearch-cluster-name
 
 #elasticsearch_cluster_node:
 #  rack : r1
