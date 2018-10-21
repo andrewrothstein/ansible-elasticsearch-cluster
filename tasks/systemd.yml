@@ -12,7 +12,7 @@
 
 - name: systemctl daemon-reload
   command: systemctl daemon-reload
-  when: elasticsearch_cluster_activate and elasticsearch_cluster_service_updated|changed
+  when: elasticsearch_cluster_activate and elasticsearch_cluster_service_updated is changed
 
 - name: starting up elasticsearch...
   become: yes
