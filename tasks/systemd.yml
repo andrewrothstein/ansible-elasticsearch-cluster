@@ -4,15 +4,16 @@
   become_user: root
   with_items:
     - f: elasticsearch.service
-  template: 
-    src: '{{item.f}}.j2'
-    dest: '{{item.d|default("/etc/systemd/system")}}/{{item.f}}'
-    mode: '{{item.m|default("0644")}}'
+  template:
+    src: '{{ item.f }}.j2'
+    dest: '{{ item.d|default("/etc/systemd/system") }}/{{ item.f }}'
+    mode: '{{ item.m|default("0644") }}'
   register: elasticsearch_cluster_service_updated
 
 - name: systemctl daemon-reload
-  command: systemctl daemon-reload
   when: elasticsearch_cluster_activate and elasticsearch_cluster_service_updated is changed
+  systemd:
+    daemon_reload: yes
 
 - name: starting up elasticsearch...
   become: yes

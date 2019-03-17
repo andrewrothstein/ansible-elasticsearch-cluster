@@ -35,5 +35,4 @@ galaxy_info:
 
 dependencies:
   - role: andrewrothstein.elasticsearch
-    version: v5.0.8
-  
+    version: v5.0.11

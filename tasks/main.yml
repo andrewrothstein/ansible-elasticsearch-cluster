@@ -3,22 +3,22 @@
   become: yes
   become_user: root
   group:
-    name: '{{elasticsearch_cluster_groupname}}'
+    name: '{{ elasticsearch_cluster_groupname }}'
     state: present
 
 - name: create elasticsearch user
   become: yes
   become_user: root
   user:
-    name: '{{elasticsearch_cluster_username}}'
-    group: '{{elasticsearch_cluster_groupname}}'
-    home: '{{elasticsearch_dir}}'
+    name: '{{ elasticsearch_cluster_username }}'
+    group: '{{ elasticsearch_cluster_groupname }}'
+    home: '{{ elasticsearch_dir }}'
 
 - name: make config dir
   become: yes
   become_user: root
   file:
-    path: '{{elasticsearch_cluster_config_dir}}'
+    path: '{{ elasticsearch_cluster_config_dir }}'
     state: directory
     mode: 0755
 
@@ -28,8 +28,8 @@
   with_items:
     - f: elasticsearch.yml
   template:
-    src: '{{item.f}}.j2'
-    dest: '{{item.d|default(elasticsearch_cluster_config_dir)}}/{{item.f}}'
-    mode: '{{item.m|default("0644")}}'
+    src: '{{ item.f }}.j2'
+    dest: '{{ item.d|default(elasticsearch_cluster_config_dir) }}/{{ item.f }}'
+    mode: '{{ item.m|default("0644") }}'
 
-- include_tasks: '{{elasticsearch_supervisor|default("systemd")}}.yml'
+- include_tasks: '{{ elasticsearch_supervisor|default("systemd") }}.yml'
