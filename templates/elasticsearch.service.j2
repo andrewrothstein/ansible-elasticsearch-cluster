@@ -5,13 +5,11 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-User={{elasticsearch_cluster_username}}
-Group={{elasticsearch_cluster_groupname}}
+User={{ elasticsearch_cluster_username }}
+Group={{ elasticsearch_cluster_groupname }}
 
-ExecStartPre={{elasticsearch_dir}}/bin/elasticsearch-systemd-pre-exec
-
-ExecStart={{elasticsearch_dir}}/bin/elasticsearch \
- -p /var/run/elasticsearch/elasticsearch.pid \
+ExecStart={{ elasticsearch_dir }}/bin/elasticsearch \
+ -p {{ elasticsearch_var_dir }}/elasticsearch.pid \
  --quiet
 
 # StandardOutput is configured to redirect to journalctl since

@@ -1,7 +1,7 @@
 ---
 # vars file for elasticsearch-cluster
-elasticsearch_cluster_config_dir: '{{elasticsearch_dir}}/config'
+elasticsearch_cluster_config_dir: '{{ elasticsearch_dir }}/config'
 
-elasticsearch_cluster_host_list: '{% if elasticsearch_cluster_hosts.ty == "static" %}{{ elasticsearch_cluster_hosts.hosts }}{% else %}{{ groups[elasticsearch_cluster_hosts.group|default("elasticsearch")] }}{% endif %}'
+elasticsearch_cluster_host_list: '{% if elasticsearch_cluster_hosts.ty == "static" %}{{  elasticsearch_cluster_hosts.hosts  }}{% else %}{{  groups[elasticsearch_cluster_hosts.group|default("elasticsearch")]  }}{% endif %}'
 
-elasticsearch_cluster_quorum: '{{ (elasticsearch_cluster_host_list|length / 2)|int + 1 }}'
+elasticsearch_cluster_quorum: '{{  (elasticsearch_cluster_host_list|length / 2)|int + 1  }}'

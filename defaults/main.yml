@@ -3,6 +3,7 @@ elasticsearch_cluster_username: elasticsearch
 elasticsearch_cluster_groupname: elasticsearch
 
 elasticsearch_dir: /usr/local/elasticsearch
+elasticsearch_var_dir: /var/lib/elasticsearch
 
 #elasticsearch_cluster_name: elasticsearch-cluster-name
 

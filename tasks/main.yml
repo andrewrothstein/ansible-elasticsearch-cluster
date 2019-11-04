@@ -17,9 +17,14 @@
 - name: make config dir
   become: yes
   become_user: root
+  with_items:
+    - '{{ elasticsearch_cluster_config_dir }}'
+    - '{{ elasticsearch_var_dir }}'
   file:
-    path: '{{ elasticsearch_cluster_config_dir }}'
+    path: '{{ item }}'
     state: directory
+    owner: '{{ elasticsearch_cluster_username }}'
+    group: '{{ elasticsearch_cluster_groupname }}'
     mode: 0755
 
 - name: install elasticsearch.yml
